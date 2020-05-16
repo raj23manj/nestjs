@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Param, Delete, Patch } from '@nestjs/commo
 import { TasksService } from './tasks.service';
 import { Task, TaskStatus } from './task.model';
 import { CreateTaskDto } from './dto/create-task.dto';
+import { GetTasksFilterDto } from './dto/get-tasks-filter.dto';
 
 @Controller('tasks')
 export class TasksController {
@@ -9,7 +10,7 @@ export class TasksController {
     constructor(private tasksService: TasksService) {   
     }
 
-    @Get()
+    @Get("/getAllTasks")
     getAllTasks(): Task[] {
         return this.tasksService.getAllTasks();
     }
@@ -46,5 +47,15 @@ export class TasksController {
     @Patch('/:id/status')
     updateTaskStatus(@Param('id') id: string, @Body('status') status: TaskStatus): Task {
         return this.tasksService.updateTaskStatus(id, status);
+    }
+
+    @Get()
+    getTasks(@Body() filterDto: GetTasksFilterDto): Task[] {
+        if(Object.keys(filterDto).length) {
+            return this.tasksService.getTasks(filterDto);
+        } else {
+            return this.tasksService.getAllTasks();
+        }
+       
     }
 }
