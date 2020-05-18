@@ -47,10 +47,10 @@ export class TasksController {
         return this.tasksService.updateTaskStatus(id, status);
     }
 
-    // @Get()
-    // getTasks(@Query(ValidationPipe) filterDto: GetTasksFilterDto): Task[] {
-    //    return this.tasksService.getTaskById(filterDto);
-    // }
+    @Get()
+    getTasks(@Query(ValidationPipe) filterDto: GetTasksFilterDto): Promise<Task[]> {
+       return this.tasksService.getTasks(filterDto);
+    }
 
     /*********************** Old Code ************************/    
 

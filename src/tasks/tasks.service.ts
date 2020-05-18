@@ -55,6 +55,10 @@ export class TasksService {
        return task;
     }
 
+    async getTasks(filterDto: GetTasksFilterDto): Promise<Task[]> {
+        return await this.taskRepository.getTasks(filterDto);
+    }
+
     /*********************** Old Code ************************/    
     
     // private tasks: Task[] = [];
